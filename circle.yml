@@ -1,0 +1,23 @@
+machine:
+  environment:
+    PATH: "~/$CIRCLE_PROJECT_REPONAME/gradle-3.2.1/bin:$PATH"
+  services:
+    - docker
+  java:
+    version: oraclejdk8
+
+dependencies:
+  pre:
+    - wget "https://services.gradle.org/distributions/gradle-3.2.1-bin.zip"; unzip gradle-3.2.1-bin.zip
+#    - chmod +x gradlew
+#  override:
+#    - docker info
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - gradle build && cp -R build/libs $CIRCLE_ARTIFACTS
+      - docker build -t "spike234/cloud-demo-order:$CIRCLE_BUILD_NUM" .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push "spike234/cloud-demo-order:$CIRCLE_BUILD_NUM"
