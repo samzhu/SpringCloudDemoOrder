@@ -34,6 +34,7 @@ public class OrderDetail implements Persistable<Long> {
     private Long itemID;
     private String itemName;
     private Integer itemPrice;
+    private Integer itemCount;
 
     @CreatedBy
     private String createdBy;

@@ -1,0 +1,13 @@
+eureka:
+  client:
+    enabled: false
+
+feign.hystrix.enabled: false
+
+item-service:
+  ribbon:
+    listOfServers: http://localhost:8685
+
+ItemReader.url: ""
+#ItemReader.url: http://localhost:8685
+#item-service.ribbon.listOfServers: 127.0.0.1:8685
